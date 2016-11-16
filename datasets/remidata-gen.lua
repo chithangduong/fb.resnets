@@ -132,16 +132,6 @@ local function findTestImages(dir,classToIdx)
         local size = #img[cId]
         -- print("Size " .. size)
         local imgCat = img[cId]
-        local nvalid = math.floor( size*valid_rate )
-        -- print("Nvalid " .. nvalid)
-        local ntrain = size-nvalid
-        -- print("Ntrain " ..ntrain)
-        local rand = torch.randperm(gen,size)
-	    --print(rand)
-        local validperm = rand:narrow(1,1,nvalid)
-        local trainperm = rand:narrow(1,1+nvalid,ntrain)
-        -- print(validperm)
-        -- print(trainperm)
         for i=1,size do
             p = imgCat[i]
             table.insert(testImagePaths,p)
