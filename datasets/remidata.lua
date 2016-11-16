@@ -21,8 +21,12 @@ function RemiDataset:__init(imageInfo, opt, split)
    self.imageInfo = imageInfo[split]
    self.opt = opt
    self.split = split
-   self.dir = paths.concat(opt.data, "train")
-   print(self.dir)
+   if split ~= "test" then
+    self.dir = paths.concat(opt.data, "train")
+   else
+    self.dir = paths.concat(opt.data, "test")
+   end
+   -- print(self.dir)
    assert(paths.dirp(self.dir), 'directory does not exist: ' .. self.dir)
 end
 
