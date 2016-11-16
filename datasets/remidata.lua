@@ -104,6 +104,13 @@ function RemiDataset:preprocess()
          t.ColorNormalize(meanstd),
          Crop(224),
       }
+   elseif self.split == 'test' then
+      local Crop = self.opt.tenCrop and t.TenCrop or t.CenterCrop
+      return t.Compose{
+         t.Scale(256),
+         t.ColorNormalize(meanstd),
+         Crop(224),
+      }
    else
       error('invalid split: ' .. self.split)
    end

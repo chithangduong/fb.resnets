@@ -30,7 +30,7 @@ local checkpoint, optimState = checkpoints.latest(opt)
 local model, criterion = models.setup(opt, checkpoint)
 
 -- Data loading
-local trainLoader, valLoader = DataLoader.create(opt)
+local trainLoader, valLoader, testLoader = DataLoader.create(opt)
 
 -- The trainer handles the training loop and evaluation on validation set
 local trainer = Trainer(model, criterion, opt, optimState)
@@ -61,5 +61,8 @@ for epoch = startEpoch, opt.nEpochs do
 
    checkpoints.save(epoch, model, trainer.optimState, bestModel, opt)
 end
+
+print(Saving model)
+torch.save( paths.concat(opt.gen,"bestmodel.t7"),model)
 
 print(string.format(' * Finished top1: %6.3f  top5: %6.3f', bestTop1, bestTop5))
